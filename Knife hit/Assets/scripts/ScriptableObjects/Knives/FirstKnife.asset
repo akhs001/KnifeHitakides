@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FirstKnife
   m_EditorClassIdentifier: 
   name: First
-  speed: 200
+  speed: 4

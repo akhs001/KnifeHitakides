@@ -49,13 +49,15 @@ public class Game : Singleton<Game> , IObserver , ISaveLoad
 
     private void OnEnable()
     {
-		EventManager.StartListening(this, "Splice", GameEnd);
+		EventManager.StartListening(this , "GameEnd" , StartGame);
+
 		EventManager.StartListening(this, "KnifeHit", () => { SoundManager.Instance.PlaySound("hit");InitKnife(); });
     }
 
     private void OnDisable()
     {
-		EventManager.StopListening(this, "Splice", GameEnd);
+		EventManager.StopListening(this , "GameEnd" , StartGame);
+
 		EventManager.StopListening(this, "KnifeHit", () => { SoundManager.Instance.PlaySound("hit"); InitKnife(); });
 	}
 
@@ -74,7 +76,7 @@ public class Game : Singleton<Game> , IObserver , ISaveLoad
 	}
 
 	int numKnives = 3;
-	public void StartGame (int level )  //if continue from checkpoint check is true;
+	public void StartGame ( )  //if continue from checkpoint check is true;
 	{
 		_kniveManager = new KnifeManager(numKnives);
 		Instantiate(LevelManager.Instance.allLevels[LevelManager.Instance.CurrentLevel].sprite); //kormos.SetActive (true);
@@ -118,15 +120,6 @@ public class Game : Singleton<Game> , IObserver , ISaveLoad
 
 
 
-	//GameOver
-	public async void GameEnd ()
-	{
-
-		await Task.Delay(1000);
-
-		StartGame(1);
-	}
-	
 
 	private float _deltatime;
 	

@@ -15,4 +15,4 @@ MonoBehaviour:
   name: Level 1
   sprite: {fileID: 7239558818283454949, guid: 29af937f1942f424b9851e813c11be0a, type: 3}
   direction: 0
-  speed: 4
+  speed: 98

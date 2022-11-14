@@ -17,30 +17,12 @@ public class KnifeDrawer {
  
     }
 
-    public async void SetKnifes(int num)
+    public void SetKnifes(int num)
     {
- 
-      await  KnifesClear();
-
-      for(int i=0; i< num; i++)
-      {
-          GameObject knife = Object.Instantiate(_knifeImage, Vector3.zero, Quaternion.identity);
-           _allKnifes.Add(knife);
-             knife.name = "test";
-            knife.transform.SetParent(_knifePanel.transform);
-        }  
-    }
-
-
-    private async Task KnifesClear()
-    {
-        foreach(GameObject k in _allKnifes)
+        for(int i=0; i< _knifePanel.transform.childCount; i++)
         {
-           Object.Destroy(k.gameObject);
+            _knifePanel.transform.GetChild(i).gameObject.SetActive(i < num);
         }
-        _allKnifes.Clear();
-
-        await Task.Delay(1000);
     }
 
 

@@ -17,7 +17,7 @@ public class rot : MonoBehaviour
     private GameObject lp, rp;
     public static List<Transform> apples = new List<Transform>(); //all apples here
 
-
+    private int currentlevel;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<knifeScript>().isFinalKnife)
@@ -43,30 +43,16 @@ public class rot : MonoBehaviour
         Destroy(lp, 2f);
         Destroy(rp, 2f);
         gameObject.SetActive(false);
-        Destroy(gameObject, 5f);
+        Destroy(gameObject);
     }
 
-    private void ClearApples()
-    {
-        foreach (Transform _apple in apples)
-        {
-            Destroy(_apple.gameObject);
-        }
-        apples.Clear();
-        foreach (Transform t in transform)
-        {
-            if (t.CompareTag("knife"))
-            {
-                Destroy(t.gameObject);
-            }
-        }
-    }
 
     void OnEnable()
     {
-        ClearApples();
         CreateApples(UnityEngine.Random.Range(1, 10));
+        currentlevel = LevelManager.Instance.CurrentLevel;
 
+       speed = LevelManager.Instance.allLevels[currentlevel].speed;
     }
 
     private void CreateApples(int number)
@@ -89,10 +75,10 @@ public class rot : MonoBehaviour
         switch (direction)
         {
             case 0:
-                transform.Rotate(0, 0, speed, Space.World);
+                transform.Rotate(0, 0, speed* Time.deltaTime, Space.World);
                 break;
             case 1:
-                transform.Rotate(0, 0, -speed, Space.World);
+                transform.Rotate(0, 0, -speed*Time.deltaTime, Space.World);
                 break;
 
         }

@@ -63,18 +63,21 @@ public class EventManager<T> : Singleton<EventManager<T>>
         }
     }
 
-    public  class EventManager : Singleton<EventManager>
+public  class EventManager : Singleton<EventManager>
     {
 
         public static List<Obs> observers = new List<Obs>();
 
         public static void TriggerEvent(string e)
         {
+            try {
             foreach (Obs obs in observers)
             {
                 if (obs.eventName == e)
                     obs.Execute();
             }
+            }
+            catch { }
         }
         public static void StartListening(IObserver o, string eventName, Action action)
         {

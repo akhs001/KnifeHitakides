@@ -5,17 +5,20 @@ using UnityEngine.UI;
 
 public class Message : Singleton<Message>
 {
-    private readonly Text messageTextUI;
-    private readonly GameObject messagePanelUI;
+    private  Text messageTextUI;
+    public GameObject messagePanelUI;
+    public bool IsShown;
 
-    public Message(GameObject panel )
+    public void Start()
     {
-        messagePanelUI = panel;
         messageTextUI = messagePanelUI.GetComponentInChildren<Text>();
     }
+
+    public void NotShown() => IsShown=false;
     
     public void ShowMessage(string _message)
     {
+        IsShown = true;
         messagePanelUI.SetActive(true);
         messageTextUI.text = _message;
     }
